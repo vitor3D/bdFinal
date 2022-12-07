@@ -1,0 +1,149 @@
+
+CREATE DATABASE loja;
+USE loja;
+
+CREATE TABLE categoria(
+cd INT PRIMARY KEY
+AUTO_INCREMENT,
+nome VARCHAR(100)
+);
+
+CREATE TABLE produto(
+cd INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR( 120),
+qtd INT(10),
+valor DECIMAL(10,2),
+id_categoria INT,
+FOREIGN KEY (id_categoria)
+REFERENCES categoria(cd)
+);
+
+CREATE TABLE vendedor(
+cd INT PRIMARY KEY
+AUTO_INCREMENT,
+nome VARCHAR(100),
+salario DECIMAL(10,2)
+);
+
+CREATE TABLE estado(
+cd INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(30),
+sigla CHAR(2)
+);
+
+CREATE TABLE cidade(
+cd INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(100),
+id_estado INT,
+FOREIGN KEY (id_estado) REFERENCES estado(cd)
+);
+
+CREATE TABLE cliente(
+cd INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(100),
+telefone VARCHAR(100),
+sexo CHAR(1),
+status CHAR(8),
+id_cidade INT,
+FOREIGN KEY (id_cidade) REFERENCES cidade(cd)
+);
+
+CREATE TABLE pedido(
+cd INT PRIMARY KEY AUTO_INCREMENT,
+id_cliente INT,
+id_vendedor INT,
+dt_pedido DATE,
+vl_total DECIMAL(10,2),
+FOREIGN KEY (id_cliente) REFERENCES cliente(cd),
+FOREIGN KEY (id_vendedor) REFERENCES vendedor(cd)
+);
+
+CREATE TABLE item_pedido(
+cd INT PRIMARY KEY AUTO_INCREMENT,
+id_pedido INT,
+id_produto INT,
+qt_produto INT,
+vl_unitario DECIMAL(10,2),
+FOREIGN KEY (id_pedido) REFERENCES pedido(cd),
+FOREIGN KEY (id_produto) REFERENCES produto(cd)
+);
+
+INSERT INTO categoria (nome) VALUES ('Elétrica'), ('Hidráulica'), ('Ferragem'), ('Construção'), ('Ferramentas');
+SELECT * FROM produto;
+
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_ELETRICA 1', 10, 4.20, 1);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_ELETRICA 2', 5, 10.50, 1);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_ELETRICA 3', 4, 9.99, 1);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_ELETRICA 4', 20, 50.30, 1);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_ELETRICA 5', 10, 4.20, 1);
+
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_HIDRAULICA 1', 10, 4.20, 2);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_HIDRAULICA 2', 5, 10.20, 2);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_HIDRAULICA 3', 4, 9.50, 2);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_HIDRAULICA 4', 20, 45.50, 2);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_HIDRAULICA 5', 10, 4.25, 2);
+
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAGEM 1', 10, 4.50, 3);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAGEM 2', 5, 11.00, 3);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAGEM 3', 4, 8.00, 3);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAGEM 4', 20, 20.50, 3);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAGEM 5', 10, 3.20, 3);
+
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_CONSTRUÇÃO 1', 10, 2.20, 4);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_CONSTRUÇÃO 2', 5, 4.99, 4);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_CONSTRUÇÃO 3', 4, 9.99, 4);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_CONSTRUÇÃO 4', 20, 90.99, 4);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_CONSTRUÇÃO 5', 10, 4.20, 4);
+
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAMENTAS 1', 10, 29.99, 5);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAMENTAS 2', 5, 12.35, 5);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAMENTAS 3', 4, 99.99, 5);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAMENTAS 4', 20, 50.00, 5);
+INSERT INTO produto(nome, qtd, valor, id_categoria) VALUES('PRODUTO_FERRAMENTAS 5', 10, 5.00, 5);
+
+INSERT INTO vendedor(nome) VALUES('Joao Gomes');
+INSERT INTO vendedor(nome) VALUES('Marcio Viniccius');
+
+INSERT INTO estado(nome, sigla) VALUES('São Paulo','SP');
+INSERT INTO estado(nome, sigla) VALUES('Rio de Janeiro','RJ');
+INSERT INTO estado(nome, sigla) VALUES('Minas Gerais','MG');
+
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 1','TELEFONE_USER 1','M','INATIVO', 1);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 2','TELEFONE_USER 2','M','ATIVO', 2);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 3','TELEFONE_USER 3','M','ATIVO', 3);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 4','TELEFONE_USER 4','M','ATIVO', 4);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 5','TELEFONE_USER 5','M','INATIVO', 5);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 6','TELEFONE_USER 6','M','ATIVO', 6);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 7','TELEFONE_USER 7','M','ATIVO', 7);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 8','TELEFONE_USER 8','M','INATIVO', 8);
+INSERT INTO cliente(nome, telefone, sexo, status, id_cidade) VALUES('NOME_USER 9','TELEFONE_USER 9','M','ATIVO', 9);
+
+SELECT * FROM item_pedido;
+
+SELECT * FROM cliente WHERE status = "ATIVO" order by nome asc;
+
+SELECT * FROM cliente WHERE status = "inativo";
+
+SELECT * FROM produto WHERE id_categoria = 2;
+
+SELECT * FROM produto WHERE valor <= 200.00;
+
+SELECT * FROM cliente WHERE sexo = "F" or sexo = "f";
+
+SELECT * FROM pedido WHERE MONTH(dt_pedido)=MONTH(CURRENT_DATE());
+
+SELECT * FROM pedido WHERE day(dt_pedido)=day(CURRENT_DATE());
+
+SELECT SUM(vl_total) FROM pedido WHERE MONTH(dt_pedido) = MONTH(NOW()) AND YEAR(dt_pedido) = YEAR(NOW());
+
+SELECT * FROM item_pedido WHERE id_pedido = 4;
+
+SELECT * FROM pedido WHERE id_cliente = 2;
+
+SELECT * FROM produto WHERE qtd<50;
+
+SELECT AVG(valor) as Media_preco FROM produto;
+
+SELECT MIN(valor) as Menor_preco FROM produto;
+
+SELECT MAX(valor) as Maior_preco FROM produto;
